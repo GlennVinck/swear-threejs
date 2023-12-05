@@ -61,7 +61,7 @@ gltfLoader.load('/models/white_boot.glb', (gltf) => {
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(5, 5, 5);
+  directionalLight.position.set(12, 8, 10);
   scene.add(directionalLight);
 
   const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
@@ -84,8 +84,7 @@ function onWindowResize() {
 window.addEventListener("resize", onWindowResize);
 
 
-camera.position.set(0, 0, 15);
-camera.lookAt(new THREE.Vector3(0, 0, 16)); 
+camera.position.set(12, 8, 10);
 // camera.position.z = 5;
 
 function animate() {
