@@ -1,5 +1,8 @@
 import "./style.css";
 import * as THREE from "three";
+// import GLTFLoader for loading models
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -26,6 +29,21 @@ const environmentMapTexture = cubeTextureLoader.load([
 
 scene.background = environmentMapTexture;
 
+const gltfLoader = new GLTFLoader();
+
+// load models/shoe_tekken.glb
+gltfLoader.load('/models/white_boot.glb', (gltf) => {
+  const shoe = gltf.scene.children[0];
+  console.log(shoe); // Log the loaded model to inspect its properties
+
+  // Adjust position and scale of the shoe model
+  shoe.position.set(0, 0, 0); // Set the position as needed
+  shoe.scale.set(1, 1, 1);    // Set the scale as needed
+
+  scene.add(gltf.scene);
+});
+
+// make window resize responsive
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -41,8 +59,6 @@ camera.lookAt(new THREE.Vector3(0, 0, 16));
 
 function animate() {
   requestAnimationFrame(animate);
-
-
 
   renderer.render(scene, camera);
 }
