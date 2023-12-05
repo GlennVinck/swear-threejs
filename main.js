@@ -37,36 +37,50 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 const gltfLoader = new GLTFLoader();
 
-// load models/shoe_tekken.glb
-gltfLoader.load('/models/white_boot.glb', (gltf) => {
-  const shoe = gltf.scene.children[0];
-  console.log(shoe); // Log the loaded model to inspect its properties
+// load models/biker_boot_model.glb
+gltfLoader.load('/models/biker_boot_model.glb', (gltfBiker) => {
+  const bikerBoot = gltfBiker.scene.children[0];
+  console.log(bikerBoot); // Log the loaded model to inspect its properties
 
-  // adjust position and scale of the shoe model
-  shoe.position.set(0, 0, 0);
-  shoe.scale.set(8, 8, 8);
+  // adjust position and scale of the biker boot model
+  bikerBoot.position.set(0, 0, 0); // Adjust the position as needed
+  bikerBoot.scale.set(8, 8, 8);
 
-  shoe.traverse((child) => {
+  bikerBoot.traverse((child) => {
     if (child.isMesh) {
+      // Apply a more realistic material with reflections and shadows
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        metalness: 0.7,
+        roughness: 0.4,
+      });
+      child.material = material;
+
       child.castShadow = true;
       child.receiveShadow = true;
     }
   });
 
-
-  scene.add(gltf.scene);
+  scene.add(gltfBiker.scene);
+});
 
   // Add lights
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(12, 8, 10);
+  directionalLight.position.set(-550, 60, 600);
+  directionalLight.castShadow = true;
   scene.add(directionalLight);
 
   const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
   scene.add(directionalLightHelper);
-});
+
+  // shadows
+  directionalLight.shadow.mapSize.width = 1024;
+  directionalLight.shadow.mapSize.height = 1024;
+  directionalLight.shadow.camera.near = 1;
+  directionalLight.shadow.camera.far = 500;
 
 
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -84,8 +98,8 @@ function onWindowResize() {
 window.addEventListener("resize", onWindowResize);
 
 
-camera.position.set(12, 8, 10);
-// camera.position.z = 5;
+camera.position.set(0, 15, 30);
+// camera.position.z = 80;
 
 function animate() {
   requestAnimationFrame(animate);
