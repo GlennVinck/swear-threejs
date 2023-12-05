@@ -16,6 +16,7 @@ const camera = new THREE.PerspectiveCamera(
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
 
@@ -41,9 +42,17 @@ gltfLoader.load('/models/white_boot.glb', (gltf) => {
   const shoe = gltf.scene.children[0];
   console.log(shoe); // Log the loaded model to inspect its properties
 
-  // Adjust position and scale of the shoe model
-  shoe.position.set(0, 0, 0); // Set the position as needed
-  shoe.scale.set(8, 8, 8);    // Set the scale as needed
+  // adjust position and scale of the shoe model
+  shoe.position.set(0, 0, 0);
+  shoe.scale.set(8, 8, 8);
+
+  shoe.traverse((child) => {
+    if (child.isMesh) {
+      child.castShadow = true;
+      child.receiveShadow = true;
+    }
+  });
+
 
   scene.add(gltf.scene);
 
@@ -51,11 +60,18 @@ gltfLoader.load('/models/white_boot.glb', (gltf) => {
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
   directionalLight.position.set(5, 5, 5);
   scene.add(directionalLight);
+
+  const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
+  scene.add(directionalLightHelper);
 });
 
+
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.autoUpdate = true;
+renderer.shadowMap.needsUpdate = true;
 
 
 // make window resize responsive
