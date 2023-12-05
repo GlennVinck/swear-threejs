@@ -3,7 +3,7 @@ import * as THREE from "three";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  75,
+  120,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
@@ -11,11 +11,20 @@ const camera = new THREE.PerspectiveCamera(
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById("app").appendChild(renderer.domElement);
+document.body.appendChild(renderer.domElement);
 
 
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+const environmentMapTexture = cubeTextureLoader.load([
+  "/cubemap/px.png",
+  "/cubemap/nx.png",
+  "/cubemap/py.png",
+  "/cubemap/ny.png",
+  "/cubemap/pz.png",
+  "/cubemap/nz.png",
+]);
 
-camera.position.z = 5;
+scene.background = environmentMapTexture;
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -24,6 +33,11 @@ function onWindowResize() {
 }
 
 window.addEventListener("resize", onWindowResize);
+
+
+camera.position.set(0, 0, 15);
+camera.lookAt(new THREE.Vector3(0, 0, 16)); 
+// camera.position.z = 5;
 
 function animate() {
   requestAnimationFrame(animate);
