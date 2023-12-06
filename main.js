@@ -4,7 +4,8 @@ import * as THREE from "three";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // import controls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
+// import dat.gui
+import * as dat from 'dat.gui';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -37,59 +38,53 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 const gltfLoader = new GLTFLoader();
 
+let gui;
+
+const componentColorOptions = {
+  Red: 0xff0000,
+  Green: 0x00ff00,
+  Blue: 0x0000ff,
+  Yellow: 0xffff00,
+  Purple: 0x800080,
+  // Add more color options as needed
+};
+
+function setupGUI(mesh, material, component) {
+  gui = new dat.GUI();
+  const folder = gui.addFolder(mesh.name || 'Mesh');
+  folder.open();
+}
+
+
 // load models/biker_boot_model.glb
-gltfLoader.load('/models/biker_boot_model.glb', (gltfBiker) => {
+gltfLoader.load('/models/shoe-optimized-arne.glb', (gltfBiker) => {
   const bikerBoot = gltfBiker.scene.children[0];
   console.log(bikerBoot); // Log the loaded model to inspect its properties
 
 
 
 
-  let outSole = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Red
+  let outsideSole = new THREE.MeshStandardMaterial({
+    color: 0xffff00, // Red
     metalness: 0.7,
     roughness: 0.4,
   });
 
-  let tip = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Green
+  let insideSole = new THREE.MeshStandardMaterial({
+    color: 0x0000ff, // Green
     metalness: 0.7,
     roughness: 0.4,
   });
 
 
-  let heelAndToeBox = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Blue
+  let inside = new THREE.MeshStandardMaterial({
+    color: 0x800080,
     metalness: 0.7,
     roughness: 0.4,
   });
 
-  let pullTabAndSwoosh = new THREE.MeshStandardMaterial({
+  let swoosh = new THREE.MeshStandardMaterial({
     color: 0x00ff00, // Purple (you can change the color as needed)
-    metalness: 0.7,
-    roughness: 0.4,
-  });
-
-  let insideCollar = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Orange (you can change the color as needed)
-    metalness: 0.7,
-    roughness: 0.4,
-  });
-  
-  let eyeStay = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Maroon (you can change the color as needed)
-    metalness: 0.7,
-    roughness: 0.4,
-  });
-  
-  let tongue = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Olive (you can change the color as needed)
-    metalness: 0.7,
-    roughness: 0.4,
-  });
-  
-  let eyeLets = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Navy (you can change the color as needed)
     metalness: 0.7,
     roughness: 0.4,
   });
@@ -100,33 +95,14 @@ gltfLoader.load('/models/biker_boot_model.glb', (gltfBiker) => {
     roughness: 0.4,
   });
   
-  let laceHooks = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Brown (you can change the color as needed)
-    metalness: 0.7,
-    roughness: 0.4,
-  });
-  
   let strap = new THREE.MeshStandardMaterial({
     color: 0x00ff00, // DarkOrchid (you can change the color as needed)
     metalness: 0.7,
     roughness: 0.4,
   });
-  
-  let strapClip = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Green (you can change the color as needed)
-    metalness: 0.7,
-    roughness: 0.4,
-  });
-
 
 let defaultMaterial = new THREE.MeshStandardMaterial({
   color: 0xff0000,
-  metalness: 0.7,
-  roughness: 0.4,
-});
-
-let newComponentMaterial = new THREE.MeshStandardMaterial({
-  color: 0xff0000, // Red
   metalness: 0.7,
   roughness: 0.4,
 });
@@ -144,65 +120,35 @@ let newComponentMaterial = new THREE.MeshStandardMaterial({
 
     
       switch (child.name) {
-        case "pd_1_plastic_0":
-          child.material = outSole; 
+        case "sole_1":
+          child.material = insideSole; 
           break;
 
-        case "pd_2_1_plastic_0":
-          child.material = tip; 
+        case "sole_2":
+          child.material = outsideSole; 
           break;
 
-        case "pd_3_plastic_0":
-          child.material = heelAndToeBox;
+        case "outside_2":
+          child.material = strap;
           break;
 
-        case "pd_4_1_Rezin_0":
-          child.material = pullTabAndSwoosh;
+        case "outside_1":
+          child.material = swoosh;
           break;
 
-        case "pd_5_Rezin_0":
-          child.material = insideCollar; 
+        case "laces":
+          child.material = laces; 
           break;
 
-        case "pd_3_1_plastic_0":
-          child.material = eyeStay; 
-          break;
-
-        case "st_1_Rezin_0":
-          child.material = tongue;
-          break;
-
-        case "met_1_Metal_0":
-          child.material = eyeLets; 
-          break;
-
-        case "sh_1_plastic_0":
-          child.material = laces;
-          break;
-
-
-        case "kl_1_Metal_0":
-          child.material = laceHooks; 
-          break;
-
-        case "rem_1_plastic_0":
-          child.material = strap; 
-          break;
-
-        case "zak_1_Metal_0":
-          child.material = strapClip; // Green material for zak_1_Metal_0
+        case "inside":
+          child.material = inside; 
           break;
       }
-
-
-
-
 
       
 
       child.castShadow = true;
       child.receiveShadow = true;
-
   }
   });
 
