@@ -9,7 +9,7 @@ import * as dat from "dat.gui";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  120,
+  100,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
@@ -20,6 +20,7 @@ scene.add(camera);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const groundGeometry = new THREE.PlaneGeometry(10, 10);
@@ -29,12 +30,12 @@ const groundmaterial = new THREE.MeshBasicMaterial({
 });
 const plane = new THREE.Mesh(groundGeometry, groundmaterial);
 plane.rotation.x = Math.PI / 2;
-plane.position.y = -0.5;
+plane.position.y = -0.2;
 plane.receiveShadow = true;
 plane.castShadow = true;
 scene.add(plane);
 
-// const cubeTextureLoader = new THREE.CubeTextureLoader();zzzz
+// const cubeTextureLoader = new THREE.CubeTextureLoader();
 // const environmentMapTexture = cubeTextureLoader.load([
 //   "/cubemap/px.png",
 //   "/cubemap/nx.png",
@@ -44,12 +45,16 @@ scene.add(plane);
 //   "/cubemap/nz.png",
 // ]);
 
-//scene.background = environmentMapTexture;
+// scene.background = environmentMapTexture;
 
 // add controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.minDistance = 0.5;
 controls.maxDistance = 1;
+controls.enableDamping = true;
+controls.dampingFactor = 0.04;
+controls.screenSpacePanning = false;
+controls.maxPolarAngle = Math.PI / 2;
 
 const gltfLoader = new GLTFLoader();
 
@@ -167,7 +172,7 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-directionalLight.position.set(0, 2, 2);
+directionalLight.position.set(0, 1, 1);
 directionalLight.castShadow = true;
 
 scene.add(directionalLight);
@@ -200,7 +205,6 @@ window.addEventListener("resize", onWindowResize);
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
-
   renderer.render(scene, camera);
 }
 
