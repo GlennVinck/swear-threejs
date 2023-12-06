@@ -48,6 +48,8 @@ scene.add(plane);
 
 // add controls
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.minDistance = 0.5;
+controls.maxDistance = 1;
 
 const gltfLoader = new GLTFLoader();
 
@@ -117,7 +119,7 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
 
   // adjust position and scale of the biker boot model
   bikerBoot.position.set(0, 0, 0); // Adjust the position as needed
-  bikerBoot.scale.set(8, 8, 8);
+  bikerBoot.scale.set(2, 2, 2);
 
   bikerBoot.traverse((child) => {
     if (child.isMesh) {
