@@ -24,15 +24,16 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const groundGeometry = new THREE.PlaneGeometry(10, 10);
-const groundmaterial = new THREE.MeshBasicMaterial({
+const groundMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
   side: THREE.DoubleSide,
+  roughness: 1, // adjust as needed
+  metalness: 0, // adjust as needed
 });
-const plane = new THREE.Mesh(groundGeometry, groundmaterial);
+const plane = new THREE.Mesh(groundGeometry, groundMaterial);
 plane.rotation.x = Math.PI / 2;
 plane.position.y = -0.2;
 plane.receiveShadow = true;
-plane.castShadow = true;
 scene.add(plane);
 
 // const cubeTextureLoader = new THREE.CubeTextureLoader();
