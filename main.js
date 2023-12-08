@@ -6,6 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import dat.gui
 import * as dat from "dat.gui";
+import { model } from "mongoose";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -16,6 +17,11 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.z = 5;
 scene.add(camera);
+
+// raycaster and mouse for mouse picking
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const modelParts = [];
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -130,6 +136,9 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
   bikerBoot.traverse((child) => {
     if (child.isMesh) {
       child.material = defaultMaterial;
+
+      modelParts.push(child);
+
       child.castShadow = true;
       child.receiveShadow = true;
 
@@ -202,6 +211,28 @@ function onWindowResize() {
 }
 
 window.addEventListener("resize", onWindowResize);
+window.addEventListener("mousemove", onMouseMove);
+
+
+function onMouseMove(event) {
+  // calculate normalized device coordinates
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // update the raycaster
+  raycaster.setFromCamera(mouse, camera);
+
+  // check for intersections
+  const intersects = raycaster.intersectObjects(modelParts);
+
+  // process the intersections
+  if (intersects.length > 0) {
+    const selectedObject = intersects[0].object;
+    console.log("Selected Object:", selectedObject.name); // log the selected object name (ex. outside_2, sole_1, etc.)
+
+
+  }
+}
 
 function animate() {
   requestAnimationFrame(animate);
