@@ -256,7 +256,7 @@ function focusOnObject(object) {
       break;
 
     case "outside_1":
-      offset = new THREE.Vector3(20, 2, 5);
+      offset = new THREE.Vector3(5, 2, 5);
       break;
 
     case "laces":
@@ -264,11 +264,11 @@ function focusOnObject(object) {
       break;
 
     case "inside":
-      offset = new THREE.Vector3(-20, 5, 0);
+      offset = new THREE.Vector3(5, 2, 0);
       break;
 
     default:
-      offset = new THREE.Vector3(25, 25, 0);
+      offset = new THREE.Vector3(0, 0, 0);
       break;
   }
 
