@@ -166,6 +166,7 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
         case "inside":
           child.material = inside;
           break;
+
       }
 
       child.castShadow = true;
@@ -211,10 +212,10 @@ function onWindowResize() {
 }
 
 window.addEventListener("resize", onWindowResize);
-window.addEventListener("mousemove", onMouseMove);
+window.addEventListener("click", onMouseClick);
 
 
-function onMouseMove(event) {
+function onMouseClick(event) {
   // calculate normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -230,12 +231,72 @@ function onMouseMove(event) {
     const selectedObject = intersects[0].object;
     console.log("Selected Object:", selectedObject.name); // log the selected object name (ex. outside_2, sole_1, etc.)
 
-
+    focusOnObject(selectedObject);
   }
 }
 
+function focusOnObject(object) {
+  const targetPosition = new THREE.Vector3();
+  object.getWorldPosition(targetPosition);
+
+
+  let offset;
+
+  switch (object.name) {
+    case "sole_1":
+      offset = new THREE.Vector3(-5, 0, 5);
+      break;
+
+    case "sole_2":
+      offset = new THREE.Vector3(5, 0, 5);
+      break;
+
+    case "outside_2":
+      offset = new THREE.Vector3(0.25, 0.25, -0.5);
+      break;
+
+    case "outside_1":
+      offset = new THREE.Vector3(20, 2, 5);
+      break;
+
+    case "laces":
+      offset = new THREE.Vector3(0, 5, 5);
+      break;
+
+    case "inside":
+      offset = new THREE.Vector3(-20, 5, 0);
+      break;
+
+    default:
+      offset = new THREE.Vector3(25, 25, 0);
+      break;
+  }
+
+  targetPosition.add(offset);
+
+  new TWEEN.Tween(camera.position)
+    .to(targetPosition, 1000)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .start()
+    .onComplete(() => {
+      camera.lookAt(targetPosition);
+      camera.up.set(0, 1, 0);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
 function animate() {
   requestAnimationFrame(animate);
+  TWEEN.update();
   controls.update();
   renderer.render(scene, camera);
 }
