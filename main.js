@@ -244,11 +244,11 @@ function focusOnObject(object) {
 
   switch (object.name) {
     case "sole_1":
-      offset = new THREE.Vector3(-5, 0, 5);
+      offset = new THREE.Vector3(-1, 0, 1);
       break;
 
     case "sole_2":
-      offset = new THREE.Vector3(5, 0, 5);
+      offset = new THREE.Vector3(1, 0, 1);
       break;
 
     case "outside_2":
@@ -256,15 +256,15 @@ function focusOnObject(object) {
       break;
 
     case "outside_1":
-      offset = new THREE.Vector3(5, 2, 5);
+      offset = new THREE.Vector3(1, 0.4, 1);
       break;
 
     case "laces":
-      offset = new THREE.Vector3(0, 5, 5);
+      offset = new THREE.Vector3(0, 1, 1);
       break;
 
     case "inside":
-      offset = new THREE.Vector3(5, 2, 0);
+      offset = new THREE.Vector3(1, 1, 1);
       break;
 
     default:
