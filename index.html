@@ -7,15 +7,22 @@
     <title>S.W.E.A.R. London | Sneaker Configurator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
   </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo-container">
-        <img src="/images/swear-logo-hori.png" alt="Logo" class="logo" />
+  <body class="flex flex-col h-screen m-0 pt-[80px]">
+    <nav
+      class="w-screen h-[80px] px-6 py-4 flex items-center fixed top-0 z-1000"
+    >
+      <div class="">
+        <img
+          src="/images/swear-logo-black.webp"
+          alt="Logo"
+          class="h-[32px] w-auto"
+        />
       </div>
     </nav>
-
-    <div id="app"></div>
-
+    <div><a href="configurator.html">Customize</a></div>
+    <footer class="w-screen h-[160px] bg-stone-300 mt-auto">
+      ©2023 by SWEAR London
+    </footer>
     <script type="module" src="./main.js"></script>
   </body>
 </html>

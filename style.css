@@ -1,25 +1,11 @@
-body {
-  margin: 0;
-}
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 
-.navbar {
-  background-color: #ffffff;
-  padding: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.logo-container {
-  margin-right: auto;
-}
-
-.logo {
-  width: 100px;
-  height: auto;
+* {
+  font-family: "Open Sans", sans-serif;
 }
 
 #color-change-ui {

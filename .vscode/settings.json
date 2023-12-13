@@ -1,0 +1,6 @@
+//tailwind
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

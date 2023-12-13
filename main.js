@@ -27,21 +27,22 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const modelParts = [];
 
+const configurator = document.getElementById("configurator");
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(configurator.clientWidth, configurator.clientHeight);
 renderer.setClearColor(new THREE.Color(0xffffff));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = true;
 renderer.shadowMap.needsUpdate = true;
 renderer.setPixelRatio(window.devicePixelRatio);
-document.body.appendChild(renderer.domElement);
+configurator.appendChild(renderer.domElement);
 
 const groundGeometry = new THREE.PlaneGeometry(10, 10);
 const groundMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
   side: THREE.DoubleSide,
-  roughness: 0, // adjust as needed
+  roughness: 1, // adjust as needed
   metalness: 0, // adjust as needed
 });
 const plane = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -249,10 +250,11 @@ const pointLight4Helper = new THREE.PointLightHelper(
 scene.add(pointLight4Helper);
 
 // make window resize responsive
+onWindowResize();
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  renderer.setSize(configurator.clientWidth, configurator.clientHeight);
+  camera.aspect = configurator.clientWidth / configurator.clientHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 window.addEventListener("resize", onWindowResize);
