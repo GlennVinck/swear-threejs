@@ -8,14 +8,18 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "dat.gui";
 import { model } from "mongoose";
 
+//-----------------CREATE SCENE-----------------//
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  100,
+  75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
-camera.position.z = 5;
+camera.position.z = 2;
+camera.position.y = 1.5;
+camera.position.x = -3;
 scene.add(camera);
 
 // raycaster and mouse for mouse picking
@@ -23,18 +27,21 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const modelParts = [];
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(new THREE.Color(0xffffff));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.autoUpdate = true;
+renderer.shadowMap.needsUpdate = true;
+renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
 const groundGeometry = new THREE.PlaneGeometry(10, 10);
 const groundMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
   side: THREE.DoubleSide,
-  roughness: 1, // adjust as needed
+  roughness: 0, // adjust as needed
   metalness: 0, // adjust as needed
 });
 const plane = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -57,10 +64,10 @@ scene.add(plane);
 
 // add controls
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.minDistance = 0.5;
-controls.maxDistance = 1;
+controls.minDistance = 1.2;
+//controls.maxDistance = 2;
 controls.enableDamping = true;
-controls.dampingFactor = 0.04;
+controls.dampingFactor = 0.06;
 controls.screenSpacePanning = false;
 controls.maxPolarAngle = Math.PI / 2;
 
@@ -131,8 +138,8 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
   });
 
   // adjust position and scale of the biker boot model
-  bikerBoot.position.set(0, 0, 0); // Adjust the position as needed
-  bikerBoot.scale.set(2, 2, 2);
+  bikerBoot.position.set(0, 0.05, 0); // Adjust the position as needed
+  bikerBoot.scale.set(5, 5, 5);
 
   bikerBoot.traverse((child) => {
     if (child.isMesh) {
@@ -179,42 +186,67 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
 });
 
 // Add lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
 scene.add(ambientLight);
 
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(0, 1.5, 0);
-pointLight.castShadow = true;
-scene.add(pointLight);
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-directionalLight.position.set(0, 1, 1);
-directionalLight.castShadow = true;
-
-scene.add(directionalLight);
-
-const directionalLightHelper = new THREE.DirectionalLightHelper(
-  directionalLight,
+const shadowLight = new THREE.DirectionalLight(0xffffff, 1.75);
+shadowLight.position.set(0, 150, 0);
+shadowLight.castShadow = true;
+scene.add(shadowLight);
+const shadowLightHelper = new THREE.DirectionalLightHelper(
+  shadowLight,
   1,
   0x000000
 );
-scene.add(directionalLightHelper);
+scene.add(shadowLightHelper);
+shadowLight.shadow.mapSize.width = 2048;
+shadowLight.shadow.mapSize.height = 2048;
+shadowLight.shadow.camera.near = 0.1;
+shadowLight.shadow.camera.far = 1000;
 
-// shadows
-pointLight.shadow.mapSize.width = 2048; // Increase the shadow map size
-pointLight.shadow.mapSize.height = 2048; // Increase the shadow map size
-pointLight.shadow.camera.near = 1;
-pointLight.shadow.camera.far = 500;
-pointLight.shadow.radius = 60; // Set the shadow blur
+const pointLight1 = new THREE.PointLight(0xffffff, 2);
+pointLight1.position.set(1.5, 1, 1.5);
+pointLight1.castShadow = false;
+scene.add(pointLight1);
+const pointLight1Helper = new THREE.PointLightHelper(
+  pointLight1,
+  0.5,
+  0x000000
+);
+scene.add(pointLight1Helper);
 
-directionalLight.shadow.mapSize.width = 1024;
-directionalLight.shadow.mapSize.height = 1024;
-directionalLight.shadow.camera.near = 1;
-directionalLight.shadow.camera.far = 500;
+const pointLight2 = new THREE.PointLight(0xffffff, 2);
+pointLight2.position.set(-1.5, 1, -1.5);
+pointLight2.castShadow = false;
+scene.add(pointLight2);
+const pointLight2Helper = new THREE.PointLightHelper(
+  pointLight2,
+  0.5,
+  0x000000
+);
+scene.add(pointLight2Helper);
 
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.shadowMap.autoUpdate = true;
-renderer.shadowMap.needsUpdate = true;
+const pointLight3 = new THREE.PointLight(0xffffff, 2);
+pointLight3.position.set(1.5, 1, -1.5);
+pointLight3.castShadow = false;
+scene.add(pointLight3);
+const pointLight3Helper = new THREE.PointLightHelper(
+  pointLight3,
+  0.5,
+  0x000000
+);
+scene.add(pointLight3Helper);
+
+const pointLight4 = new THREE.PointLight(0xffffff0, 2);
+pointLight4.position.set(-1.5, 1, 1.5);
+pointLight4.castShadow = false;
+scene.add(pointLight4);
+const pointLight4Helper = new THREE.PointLightHelper(
+  pointLight4,
+  0.5,
+  0x000000
+);
+scene.add(pointLight4Helper);
 
 // make window resize responsive
 function onWindowResize() {
