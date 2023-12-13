@@ -25,6 +25,7 @@ const modelParts = [];
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(new THREE.Color(0xffffff));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
@@ -166,7 +167,6 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
         case "inside":
           child.material = inside;
           break;
-
       }
 
       child.castShadow = true;
@@ -179,8 +179,13 @@ gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
 });
 
 // Add lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 1);
+pointLight.position.set(0, 1.5, 0);
+pointLight.castShadow = true;
+scene.add(pointLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 directionalLight.position.set(0, 1, 1);
@@ -190,11 +195,18 @@ scene.add(directionalLight);
 
 const directionalLightHelper = new THREE.DirectionalLightHelper(
   directionalLight,
-  1
+  1,
+  0x000000
 );
 scene.add(directionalLightHelper);
 
 // shadows
+pointLight.shadow.mapSize.width = 2048; // Increase the shadow map size
+pointLight.shadow.mapSize.height = 2048; // Increase the shadow map size
+pointLight.shadow.camera.near = 1;
+pointLight.shadow.camera.far = 500;
+pointLight.shadow.radius = 60; // Set the shadow blur
+
 directionalLight.shadow.mapSize.width = 1024;
 directionalLight.shadow.mapSize.height = 1024;
 directionalLight.shadow.camera.near = 1;
@@ -213,7 +225,6 @@ function onWindowResize() {
 
 window.addEventListener("resize", onWindowResize);
 window.addEventListener("click", onMouseClick);
-
 
 function onMouseClick(event) {
   // calculate normalized device coordinates
@@ -238,7 +249,6 @@ function onMouseClick(event) {
 function focusOnObject(object) {
   const targetPosition = new THREE.Vector3();
   object.getWorldPosition(targetPosition);
-
 
   let offset;
 
@@ -283,16 +293,6 @@ function focusOnObject(object) {
       camera.up.set(0, 1, 0);
     });
 }
-
-
-
-
-
-
-
-
-
-
 
 function animate() {
   requestAnimationFrame(animate);
