@@ -15,6 +15,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^21.0.0",
     "dat": "^14.0.3",
     "dat.gui": "^0.7.9",
     "gui": "^0.14.1",
