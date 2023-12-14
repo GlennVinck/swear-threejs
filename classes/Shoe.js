@@ -88,6 +88,12 @@ export class Shoe {
 
       // make textures sharper
 
+      polyesterDiffuseMap.anisotropy = 16;
+      polyesterNormalMap.anisotropy = 16;
+      polyesterRoughnessMap.anisotropy = 16;
+      polyesterAOMap.anisotropy = 16;
+      polyesterDisplacementMap.anisotropy = 16;
+
       // make textures seamless
 
       polyesterDiffuseMap.wrapS = THREE.RepeatWrapping;
@@ -101,48 +107,153 @@ export class Shoe {
       polyesterDisplacementMap.wrapS = THREE.RepeatWrapping;
       polyesterDisplacementMap.wrapT = THREE.RepeatWrapping;
 
+      const leatherDiffuseMap = new THREE.TextureLoader().load(
+        "./textures/leather/Leather_005_basecolor.jpg"
+      );
+      const leatherNormalMap = new THREE.TextureLoader().load(
+        "./textures/leather/Leather_005_normal.jpg"
+      );
+      const leatherRoughnessMap = new THREE.TextureLoader().load(
+        "./textures/leather/Leather_005_roughness.jpg"
+      );
+      const leatherAOMap = new THREE.TextureLoader().load(
+        "./textures/leather/Leather_005_ambientOcclusion.jpg"
+      );
+      const leatherDisplacementMap = new THREE.TextureLoader().load(
+        "./textures/leather/Leather_005_height.png"
+      );
+
+      // make textures smaller
+
+      leatherDiffuseMap.repeat.set(14, 14);
+      leatherNormalMap.repeat.set(14, 14);
+      leatherRoughnessMap.repeat.set(14, 14);
+      leatherAOMap.repeat.set(14, 14);
+      leatherDisplacementMap.repeat.set(14, 14);
+
+      // make textures sharper
+
+      leatherDiffuseMap.anisotropy = 16;
+      leatherNormalMap.anisotropy = 16;
+      leatherRoughnessMap.anisotropy = 16;
+      leatherAOMap.anisotropy = 16;
+      leatherDisplacementMap.anisotropy = 16;
+
+      // make textures seamless
+
+      leatherDiffuseMap.wrapS = THREE.RepeatWrapping;
+      leatherDiffuseMap.wrapT = THREE.RepeatWrapping;
+      leatherNormalMap.wrapS = THREE.RepeatWrapping;
+      leatherNormalMap.wrapT = THREE.RepeatWrapping;
+      leatherRoughnessMap.wrapS = THREE.RepeatWrapping;
+      leatherRoughnessMap.wrapT = THREE.RepeatWrapping;
+      leatherAOMap.wrapS = THREE.RepeatWrapping;
+      leatherAOMap.wrapT = THREE.RepeatWrapping;
+      leatherDisplacementMap.wrapS = THREE.RepeatWrapping;
+      leatherDisplacementMap.wrapT = THREE.RepeatWrapping;
+
+      const plasticDiffuseMap = new THREE.TextureLoader().load(
+        "./textures/plastic/Plastic_003_basecolor.jpg"
+      );
+      const plasticNormalMap = new THREE.TextureLoader().load(
+        "./textures/plastic/Plastic_003_normal.jpg"
+      );
+      const plasticRoughnessMap = new THREE.TextureLoader().load(
+        "./textures/plastic/Plastic_003_roughness.jpg"
+      );
+      const plasticAOMap = new THREE.TextureLoader().load(
+        "./textures/plastic/Plastic_003_ambientOcclusion.jpg"
+      );
+      const plasticDisplacementMap = new THREE.TextureLoader().load(
+        "./textures/plastic/Plastic_003_height.png"
+      );
+
+      // make textures smaller
+
+      plasticDiffuseMap.repeat.set(2, 2);
+      plasticNormalMap.repeat.set(2, 2);
+      plasticRoughnessMap.repeat.set(2, 2);
+      plasticAOMap.repeat.set(2, 2);
+      plasticDisplacementMap.repeat.set(2, 2);
+
+      // make textures sharper
+
+      plasticDiffuseMap.anisotropy = 16;
+      plasticNormalMap.anisotropy = 16;
+      plasticRoughnessMap.anisotropy = 16;
+      plasticAOMap.anisotropy = 16;
+      plasticDisplacementMap.anisotropy = 16;
+
+      // make textures seamless
+
+      plasticDiffuseMap.wrapS = THREE.RepeatWrapping;
+      plasticDiffuseMap.wrapT = THREE.RepeatWrapping;
+      plasticNormalMap.wrapS = THREE.RepeatWrapping;
+      plasticNormalMap.wrapT = THREE.RepeatWrapping;
+      plasticRoughnessMap.wrapS = THREE.RepeatWrapping;
+      plasticRoughnessMap.wrapT = THREE.RepeatWrapping;
+      plasticAOMap.wrapS = THREE.RepeatWrapping;
+      plasticAOMap.wrapT = THREE.RepeatWrapping;
+      plasticDisplacementMap.wrapS = THREE.RepeatWrapping;
+      plasticDisplacementMap.wrapT = THREE.RepeatWrapping;
+
       let outsideSole = new THREE.MeshStandardMaterial({
-        color: 0x303030, // Red
+        color: 0x202020,
         metalness: 0,
-        roughness: 0.6,
+        roughness: 0.8,
         normalMap: sole1NormalMap,
         aoMap: sole1AOMap,
         displacementMap: sole1DisplacementMap,
-        displacementScale: 0.01,
+        displacementScale: 0,
         roughnessMap: sole1RoughnessMap,
       });
 
       let insideSole = new THREE.MeshStandardMaterial({
-        color: 0x0000ff, // Green
-        metalness: 0.7,
-        roughness: 0.4,
+        color: 0x00ffff,
+        metalness: 0.2,
+        roughness: 0.8,
+        normalMap: leatherNormalMap,
+        aoMap: leatherAOMap,
+        displacementMap: leatherDisplacementMap,
+        displacementScale: 0,
+        roughnessMap: leatherRoughnessMap,
       });
 
       let inside = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
+        color: 0x111111,
         metalness: 0,
         roughness: 0.8,
         normalMap: polyesterNormalMap,
         aoMap: polyesterAOMap,
         displacementMap: polyesterDisplacementMap,
-        displacementScale: 0.01,
+        displacementScale: 0,
         roughnessMap: polyesterRoughnessMap,
       });
 
       let swoosh = new THREE.MeshStandardMaterial({
-        color: 0x00ff00, // Purple (you can change the color as needed)
-        metalness: 0.7,
-        roughness: 0.4,
+        color: 0xf2a342,
+        metalness: 0.1,
+        roughness: 0.7,
+        normalMap: plasticNormalMap,
+        aoMap: plasticAOMap,
+        displacementMap: plasticDisplacementMap,
+        displacementScale: 0,
+        roughnessMap: plasticRoughnessMap,
       });
 
       let laces = new THREE.MeshStandardMaterial({
-        color: 0x00ffff, // SaddleBrown (you can change the color as needed)
-        metalness: 0.7,
-        roughness: 0.4,
+        color: 0x202020,
+        metalness: 0,
+        roughness: 0.8,
+        normalMap: polyesterNormalMap,
+        aoMap: polyesterAOMap,
+        displacementMap: polyesterDisplacementMap,
+        displacementScale: 0,
+        roughnessMap: polyesterRoughnessMap,
       });
 
       let strap = new THREE.MeshStandardMaterial({
-        color: 0x000000, // DarkOrchid (you can change the color as needed)
+        color: 0x000000,
         metalness: 0.7,
         roughness: 0.4,
       });
