@@ -55,6 +55,62 @@ renderer.shadowMap.needsUpdate = true;
 renderer.setPixelRatio(window.devicePixelRatio);
 configurator.appendChild(renderer.domElement);
 
+//-----------------TEXTURES-----------------//
+
+const textureLoader = new THREE.TextureLoader();
+const diffuseMap = textureLoader.load(
+  "/textures/sole-rubber/Rubber_Sole_002_basecolor.jpg"
+);
+const normalMap = textureLoader.load(
+  "/textures/sole-rubber/Rubber_Sole_002_normal.jpg"
+);
+const roughnessMap = textureLoader.load(
+  "/textures/sole-rubber/Rubber_Sole_002_roughness.jpg"
+);
+const aoMap = textureLoader.load(
+  "/textures/sole-rubber/Rubber_Sole_002_ambientOcclusion.jpg"
+);
+const displacementMap = textureLoader.load(
+  "/textures/sole-rubber/Rubber_Sole_002_height.png"
+);
+
+// make textures smaller
+
+diffuseMap.repeat.set(5, 5);
+normalMap.repeat.set(5, 5);
+roughnessMap.repeat.set(5, 5);
+aoMap.repeat.set(5, 5);
+displacementMap.repeat.set(5, 5);
+
+// make textures sharper
+
+diffuseMap.anisotropy = 16;
+normalMap.anisotropy = 16;
+roughnessMap.anisotropy = 16;
+aoMap.anisotropy = 16;
+displacementMap.anisotropy = 16;
+
+// make textures seamless
+
+diffuseMap.wrapS = THREE.RepeatWrapping;
+diffuseMap.wrapT = THREE.RepeatWrapping;
+normalMap.wrapS = THREE.RepeatWrapping;
+normalMap.wrapT = THREE.RepeatWrapping;
+roughnessMap.wrapS = THREE.RepeatWrapping;
+roughnessMap.wrapT = THREE.RepeatWrapping;
+aoMap.wrapS = THREE.RepeatWrapping;
+aoMap.wrapT = THREE.RepeatWrapping;
+displacementMap.wrapS = THREE.RepeatWrapping;
+displacementMap.wrapT = THREE.RepeatWrapping;
+
+// make textures offset
+
+diffuseMap.offset.set(0.5, 0.5);
+normalMap.offset.set(0.5, 0.5);
+roughnessMap.offset.set(0.5, 0.5);
+aoMap.offset.set(0.5, 0.5);
+displacementMap.offset.set(0.5, 0.5);
+
 //-----------------GEOMETRIES-----------------//
 
 const groundGeometry = new THREE.PlaneGeometry(10, 10);
@@ -68,6 +124,23 @@ const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
+
+const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+const sphereMaterial = new THREE.MeshStandardMaterial({
+  color: 0xffffff,
+  roughness: 1, // adjust as needed
+  metalness: 0, // adjust as needed
+  map: diffuseMap,
+  normalMap: normalMap,
+  roughnessMap: roughnessMap,
+  aoMap: aoMap,
+  displacementMap: displacementMap,
+  displacementScale: 0.01,
+});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+sphere.position.set(1, 1, 2);
+sphere.castShadow = true;
+scene.add(sphere);
 
 //-----------------CUBEMAP-----------------//
 
