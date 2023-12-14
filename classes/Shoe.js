@@ -209,7 +209,7 @@ export class Shoe {
       });
 
       let insideSole = new THREE.MeshStandardMaterial({
-        color: 0x00ffff,
+        color: 0x55ebef,
         metalness: 0.2,
         roughness: 0.8,
         normalMap: leatherNormalMap,
@@ -231,9 +231,9 @@ export class Shoe {
       });
 
       let swoosh = new THREE.MeshStandardMaterial({
-        color: 0xf2a342,
+        color: 0xef8c2e,
         metalness: 0.1,
-        roughness: 0.7,
+        roughness: 0.8,
         normalMap: plasticNormalMap,
         aoMap: plasticAOMap,
         displacementMap: plasticDisplacementMap,
@@ -264,8 +264,8 @@ export class Shoe {
         roughness: 0.4,
       });
 
-      // adjust position and scale of the biker boot model
-      bikerBoot.position.set(0, 0.3, 0);
+      bikerBoot.position.set(0, 0.3, -0.1);
+      bikerBoot.rotation.y = Math.PI / 2;
       bikerBoot.scale.set(5, 5, 5);
 
       bikerBoot.traverse((child) => {

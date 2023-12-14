@@ -16,9 +16,9 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.z = 2;
-camera.position.y = 1.5;
-camera.position.x = -3;
+camera.position.z = 1.6;
+camera.position.y = 0.3;
+
 scene.add(camera);
 
 //-----------------DEFINE CONSTANTS-----------------//
@@ -55,62 +55,6 @@ renderer.shadowMap.needsUpdate = true;
 renderer.setPixelRatio(window.devicePixelRatio);
 configurator.appendChild(renderer.domElement);
 
-//-----------------TEXTURES-----------------//
-
-const textureLoader = new THREE.TextureLoader();
-const diffuseMap = textureLoader.load(
-  "/textures/sole-rubber/Rubber_Sole_002_basecolor.jpg"
-);
-const normalMap = textureLoader.load(
-  "/textures/sole-rubber/Rubber_Sole_002_normal.jpg"
-);
-const roughnessMap = textureLoader.load(
-  "/textures/sole-rubber/Rubber_Sole_002_roughness.jpg"
-);
-const aoMap = textureLoader.load(
-  "/textures/sole-rubber/Rubber_Sole_002_ambientOcclusion.jpg"
-);
-const displacementMap = textureLoader.load(
-  "/textures/sole-rubber/Rubber_Sole_002_height.png"
-);
-
-// make textures smaller
-
-diffuseMap.repeat.set(5, 5);
-normalMap.repeat.set(5, 5);
-roughnessMap.repeat.set(5, 5);
-aoMap.repeat.set(5, 5);
-displacementMap.repeat.set(5, 5);
-
-// make textures sharper
-
-diffuseMap.anisotropy = 16;
-normalMap.anisotropy = 16;
-roughnessMap.anisotropy = 16;
-aoMap.anisotropy = 16;
-displacementMap.anisotropy = 16;
-
-// make textures seamless
-
-diffuseMap.wrapS = THREE.RepeatWrapping;
-diffuseMap.wrapT = THREE.RepeatWrapping;
-normalMap.wrapS = THREE.RepeatWrapping;
-normalMap.wrapT = THREE.RepeatWrapping;
-roughnessMap.wrapS = THREE.RepeatWrapping;
-roughnessMap.wrapT = THREE.RepeatWrapping;
-aoMap.wrapS = THREE.RepeatWrapping;
-aoMap.wrapT = THREE.RepeatWrapping;
-displacementMap.wrapS = THREE.RepeatWrapping;
-displacementMap.wrapT = THREE.RepeatWrapping;
-
-// make textures offset
-
-diffuseMap.offset.set(0.5, 0.5);
-normalMap.offset.set(0.5, 0.5);
-roughnessMap.offset.set(0.5, 0.5);
-aoMap.offset.set(0.5, 0.5);
-displacementMap.offset.set(0.5, 0.5);
-
 //-----------------GEOMETRIES-----------------//
 
 const groundGeometry = new THREE.PlaneGeometry(10, 10);
@@ -124,23 +68,6 @@ const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
-
-const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-const sphereMaterial = new THREE.MeshStandardMaterial({
-  color: 0xffffff,
-  roughness: 1, // adjust as needed
-  metalness: 0, // adjust as needed
-  map: diffuseMap,
-  normalMap: normalMap,
-  roughnessMap: roughnessMap,
-  aoMap: aoMap,
-  displacementMap: displacementMap,
-  displacementScale: 0.01,
-});
-const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-sphere.position.set(1, 1, 2);
-sphere.castShadow = true;
-scene.add(sphere);
 
 //-----------------CUBEMAP-----------------//
 
@@ -177,12 +104,6 @@ const shadowLight = new THREE.DirectionalLight(0xffffff, 1.75);
 shadowLight.position.set(0, 150, 0);
 shadowLight.castShadow = true;
 scene.add(shadowLight);
-const shadowLightHelper = new THREE.DirectionalLightHelper(
-  shadowLight,
-  1,
-  0x000000
-);
-scene.add(shadowLightHelper);
 shadowLight.shadow.mapSize.width = 2048;
 shadowLight.shadow.mapSize.height = 2048;
 shadowLight.shadow.camera.near = 0.1;
@@ -192,45 +113,56 @@ const pointLight1 = new THREE.PointLight(0xffffff, 2);
 pointLight1.position.set(1.5, 1, 1.5);
 pointLight1.castShadow = false;
 scene.add(pointLight1);
-const pointLight1Helper = new THREE.PointLightHelper(
-  pointLight1,
-  0.5,
-  0x000000
-);
-scene.add(pointLight1Helper);
 
 const pointLight2 = new THREE.PointLight(0xffffff, 2);
 pointLight2.position.set(-1.5, 1, -1.5);
 pointLight2.castShadow = false;
 scene.add(pointLight2);
-const pointLight2Helper = new THREE.PointLightHelper(
-  pointLight2,
-  0.5,
-  0x000000
-);
-scene.add(pointLight2Helper);
 
 const pointLight3 = new THREE.PointLight(0xffffff, 2);
 pointLight3.position.set(1.5, 1, -1.5);
 pointLight3.castShadow = false;
 scene.add(pointLight3);
-const pointLight3Helper = new THREE.PointLightHelper(
-  pointLight3,
-  0.5,
-  0x000000
-);
-scene.add(pointLight3Helper);
 
 const pointLight4 = new THREE.PointLight(0xffffff0, 2);
 pointLight4.position.set(-1.5, 1, 1.5);
 pointLight4.castShadow = false;
 scene.add(pointLight4);
-const pointLight4Helper = new THREE.PointLightHelper(
-  pointLight4,
-  0.5,
-  0x000000
-);
-scene.add(pointLight4Helper);
+
+//-----------------HELPERS-----------------//
+
+// const shadowLightHelper = new THREE.DirectionalLightHelper(
+//   shadowLight,
+//   1,
+//   0x000000
+// );
+// scene.add(shadowLightHelper);
+
+// const pointLight1Helper = new THREE.PointLightHelper(
+//   pointLight1,
+//   0.5,
+//   0x000000
+// );
+// scene.add(pointLight1Helper);
+
+// const pointLight2Helper = new THREE.PointLightHelper(
+//   pointLight2,
+//   0.5,
+//   0x000000
+// );
+// scene.add(pointLight2Helper);
+// const pointLight3Helper = new THREE.PointLightHelper(
+//   pointLight3,
+//   0.5,
+//   0x000000
+// );
+// scene.add(pointLight3Helper);
+// const pointLight4Helper = new THREE.PointLightHelper(
+//   pointLight4,
+//   0.5,
+//   0x000000
+// );
+// scene.add(pointLight4Helper);
 
 //-----------------RESPONSIVE WINDOW RESIZE-----------------//
 
