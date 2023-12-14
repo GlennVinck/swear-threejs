@@ -197,6 +197,51 @@ export class Shoe {
       plasticDisplacementMap.wrapS = THREE.RepeatWrapping;
       plasticDisplacementMap.wrapT = THREE.RepeatWrapping;
 
+      const nylonDiffuseMap = new THREE.TextureLoader().load(
+        "./textures/nylon/Nylon_Ribbon_001_basecolor.jpg"
+      );
+      const nylonNormalMap = new THREE.TextureLoader().load(
+        "./textures/nylon/Nylon_Ribbon_001_normal.jpg"
+      );
+      const nylonRoughnessMap = new THREE.TextureLoader().load(
+        "./textures/nylon/Nylon_Ribbon_001_roughness.jpg"
+      );
+      const nylonAOMap = new THREE.TextureLoader().load(
+        "./textures/nylon/Nylon_Ribbon_001_ambientOcclusion.jpg"
+      );
+      const nylonDisplacementMap = new THREE.TextureLoader().load(
+        "./textures/nylon/Nylon_Ribbon_001_height.png"
+      );
+
+      // make textures smaller
+
+      nylonDiffuseMap.repeat.set(2.5, 2.5);
+      nylonNormalMap.repeat.set(2.5, 2.5);
+      nylonRoughnessMap.repeat.set(2.5, 2.5);
+      nylonAOMap.repeat.set(2.5, 2.5);
+      nylonDisplacementMap.repeat.set(2.5, 2.5);
+
+      // make textures sharper
+
+      nylonDiffuseMap.anisotropy = 16;
+      nylonNormalMap.anisotropy = 16;
+      nylonRoughnessMap.anisotropy = 16;
+      nylonAOMap.anisotropy = 16;
+      nylonDisplacementMap.anisotropy = 16;
+
+      // make textures seamless
+
+      nylonDiffuseMap.wrapS = THREE.RepeatWrapping;
+      nylonDiffuseMap.wrapT = THREE.RepeatWrapping;
+      nylonNormalMap.wrapS = THREE.RepeatWrapping;
+      nylonNormalMap.wrapT = THREE.RepeatWrapping;
+      nylonRoughnessMap.wrapS = THREE.RepeatWrapping;
+      nylonRoughnessMap.wrapT = THREE.RepeatWrapping;
+      nylonAOMap.wrapS = THREE.RepeatWrapping;
+      nylonAOMap.wrapT = THREE.RepeatWrapping;
+      nylonDisplacementMap.wrapS = THREE.RepeatWrapping;
+      nylonDisplacementMap.wrapT = THREE.RepeatWrapping;
+
       let outsideSole = new THREE.MeshStandardMaterial({
         color: 0x202020,
         metalness: 0,
@@ -231,7 +276,7 @@ export class Shoe {
       });
 
       let swoosh = new THREE.MeshStandardMaterial({
-        color: 0xef8c2e,
+        color: 0xffffff,
         metalness: 0.1,
         roughness: 0.8,
         normalMap: plasticNormalMap,
@@ -245,11 +290,11 @@ export class Shoe {
         color: 0x202020,
         metalness: 0,
         roughness: 0.8,
-        normalMap: polyesterNormalMap,
-        aoMap: polyesterAOMap,
-        displacementMap: polyesterDisplacementMap,
+        normalMap: nylonNormalMap,
+        aoMap: nylonAOMap,
+        displacementMap: nylonDisplacementMap,
         displacementScale: 0,
-        roughnessMap: polyesterRoughnessMap,
+        roughnessMap: nylonRoughnessMap,
       });
 
       let strap = new THREE.MeshStandardMaterial({
