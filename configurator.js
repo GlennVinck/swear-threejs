@@ -7,6 +7,7 @@ import { Shoe } from "./classes/shoe.js";
 import TWEEN from "@tweenjs/tween.js";
 import { GUI } from "dat.gui";
 
+
 //-----------------CREATE SCENE-----------------//
 
 const scene = new THREE.Scene();
@@ -53,6 +54,7 @@ for (const color of componentColorOptions) {
   colorDiv.style.transition = "transform 0.2s ease-in-out";
   colorDiv.addEventListener("click", () => {
     console.log(color);
+    changeColor(selectedObject, color);
   });
   colorDiv.addEventListener("mouseover", () => {
     colorDiv.style.transform = "translateY(-5px)";
@@ -205,7 +207,19 @@ function onWindowResize() {
 window.addEventListener("resize", onWindowResize);
 window.addEventListener("click", onMouseClick);
 
+
+
+function changeColor(selectedObject, newColor) {
+  // update the material color of the selected object
+  selectedObject.material.color.set(new THREE.Color(newColor));
+}
+
+
+
+
 //-----------------RAYCASTER-----------------//
+
+let selectedObject;
 
 function onMouseClick(event) {
   // calculate normalized device coordinates
@@ -220,7 +234,7 @@ function onMouseClick(event) {
 
   // process the intersections
   if (intersects.length > 0) {
-    const selectedObject = intersects[0].object;
+    selectedObject = intersects[0].object;
 
     // Check if the folder already exists and remove it
     if (gui.__folders["Color"]) {
@@ -242,7 +256,7 @@ function onMouseClick(event) {
     const colorControl = colorFolder
       .addColor({ color: color }, "color")
       .name(selectedObject.name);
-
+  
     // Handle color change event
     colorControl.onChange(function (selectedColor) {
       // Set the new color to the material
