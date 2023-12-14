@@ -236,6 +236,10 @@ function onMouseClick(event) {
   if (intersects.length > 0) {
     selectedObject = intersects[0].object;
 
+    // update the selected part in the HTML
+    const selectedPart = document.getElementById("selected-part");
+    selectedPart.innerHTML = selectedObject.name;
+
     // Check if the folder already exists and remove it
     if (gui.__folders["Color"]) {
       gui.__folders["Color"].__controllers.forEach((controller) => {
