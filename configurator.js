@@ -28,14 +28,42 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const gui = new GUI();
 
-const componentColorOptions = {
-  Red: 0xff0000,
-  Green: 0x00ff00,
-  Blue: 0x0000ff,
-  Yellow: 0xffff00,
-  Purple: 0x800080,
+const componentColorOptions = [
+  "#ffffff",
+  "#000000",
+  "#FAC7B1",
+  "#F9B090",
+  "#F79970",
+  "#F58250",
+  "#F36B30",
+  "#F15410",
   // Add more color options as needed
-};
+];
+
+// render colors in divs in the DOM
+const colorPicker = document.getElementById("color-picker");
+for (const color of componentColorOptions) {
+  const colorDiv = document.createElement("div");
+  colorDiv.style.backgroundColor = color;
+  colorDiv.style.width = "100%";
+  colorDiv.style.height = "auto";
+  colorDiv.style.cursor = "pointer";
+  colorDiv.style.position = "relative";
+  colorDiv.style.zIndex = 1;
+  colorDiv.style.transition = "transform 0.2s ease-in-out";
+  colorDiv.addEventListener("click", () => {
+    console.log(color);
+  });
+  colorDiv.addEventListener("mouseover", () => {
+    colorDiv.style.transform = "translateY(-5px)";
+    colorDiv.style.zIndex = 2;
+  });
+  colorDiv.addEventListener("mouseout", () => {
+    colorDiv.style.transform = "translateY(0)";
+    colorDiv.style.zIndex = 1;
+  });
+  colorPicker.appendChild(colorDiv);
+}
 
 //-----------------LOAD SHOE CLASS-----------------//
 
