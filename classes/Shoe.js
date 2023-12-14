@@ -14,8 +14,8 @@ export class Shoe {
     const gltfLoader = new GLTFLoader();
 
     gltfLoader.load("/models/shoe-optimized-arne.glb", (gltfBiker) => {
-      const bikerBoot = gltfBiker.scene.children[0];
-      console.log(bikerBoot); // Log the loaded model to inspect its properties
+      const shoe = gltfBiker.scene.children[0];
+      console.log(shoe); // Log the loaded model to inspect its properties
 
       const sole1DiffuseMap = new THREE.TextureLoader().load(
         "./textures/sole-rubber/Rubber_Sole_002_basecolor.jpg"
@@ -309,11 +309,11 @@ export class Shoe {
         roughness: 0.4,
       });
 
-      bikerBoot.position.set(0, 0.3, -0.1);
-      bikerBoot.rotation.y = Math.PI / 2;
-      bikerBoot.scale.set(5, 5, 5);
+      shoe.position.set(0, 0.05, -0.1);
+      shoe.rotation.y = Math.PI / 2;
+      shoe.scale.set(5, 5, 5);
 
-      bikerBoot.traverse((child) => {
+      shoe.traverse((child) => {
         if (child.isMesh) {
           child.material = defaultMaterial;
 

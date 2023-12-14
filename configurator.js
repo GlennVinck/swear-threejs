@@ -66,6 +66,7 @@ const groundMaterial = new THREE.MeshStandardMaterial({
 });
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI / 2;
+ground.position.y = -0.2;
 ground.receiveShadow = true;
 scene.add(ground);
 
@@ -91,7 +92,7 @@ controls.minDistance = 1.2;
 controls.enableDamping = true;
 controls.dampingFactor = 0.06;
 controls.screenSpacePanning = false;
-controls.maxPolarAngle = Math.PI / 2 - 0.1;
+controls.maxPolarAngle = Math.PI / 2 + 0.06;
 
 //-----------------GUI-----------------//
 
