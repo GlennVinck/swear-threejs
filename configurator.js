@@ -29,8 +29,10 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const gui = new GUI();
 
+
+//-----------------COLORS-----------------//
 const componentColorOptions = [
-  "#ffffff",
+  "#EEEEEE",
   "#000000",
   "#FAC7B1",
   "#F9B090",
@@ -40,6 +42,8 @@ const componentColorOptions = [
   "#F15410",
   // Add more color options as needed
 ];
+
+
 
 // render colors in divs in the DOM
 const colorPicker = document.getElementById("color-picker");
@@ -66,6 +70,9 @@ for (const color of componentColorOptions) {
   });
   colorPicker.appendChild(colorDiv);
 }
+
+//-----------------SIZES-----------------//
+const sizes = ["35","36","37","38","39" ,"40", "41", "42", "43", "44", "45", "46"];
 
 //-----------------LOAD SHOE CLASS-----------------//
 
@@ -321,6 +328,32 @@ function focusOnObject(object) {
       camera.up.set(0, 1, 0);
     });
 }
+
+
+const sizeDropdown = document.getElementById("sizeDropdown");
+for (const selectedSize of sizes) {
+  const option = document.createElement("option");
+  option.value = selectedSize;
+  option.text = selectedSize;
+  sizeDropdown.add(option);
+}
+
+// Update the existing event listener to set the selected size
+sizeDropdown.addEventListener("change", function (event) {
+  const selectedSize = event.target.value;
+  updateSelectedSize(selectedSize);
+});
+
+// Add a function to update the selected size in the HTML
+function updateSelectedSize(selectedSize) {
+  const sizeDisplay = document.getElementById("sizeDisplay");
+  sizeDisplay.textContent = selectedSize;
+}
+
+
+
+
+
 
 //-----------------ANIMATE-----------------//
 
