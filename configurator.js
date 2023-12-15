@@ -74,6 +74,11 @@ for (const color of componentColorOptions) {
 //-----------------SIZES-----------------//
 const sizes = ["35","36","37","38","39" ,"40", "41", "42", "43", "44", "45", "46"];
 
+//-----------------QUANTITY-----------------//
+let currentQuantity = 1;
+const maxQuantity = 5;
+const quantityDisplay = document.getElementById("quantityDisplay");
+
 //-----------------LOAD SHOE CLASS-----------------//
 
 const shoe = new Shoe(scene);
@@ -330,6 +335,8 @@ function focusOnObject(object) {
 }
 
 
+//-----------------CHOOSE SIZE-----------------//
+// add the sizes to the dropdown
 const sizeDropdown = document.getElementById("sizeDropdown");
 for (const selectedSize of sizes) {
   const option = document.createElement("option");
@@ -338,17 +345,53 @@ for (const selectedSize of sizes) {
   sizeDropdown.add(option);
 }
 
-// Update the existing event listener to set the selected size
+// update the existing event listener to set the selected size
 sizeDropdown.addEventListener("change", function (event) {
   const selectedSize = event.target.value;
   updateSelectedSize(selectedSize);
 });
 
-// Add a function to update the selected size in the HTML
+// add a function to update the selected size in the HTML
 function updateSelectedSize(selectedSize) {
   const sizeDisplay = document.getElementById("sizeDisplay");
   sizeDisplay.textContent = selectedSize;
 }
+
+
+
+
+//-----------------QUANTITY-----------------//
+
+document.getElementById("incrementBtn").addEventListener("click", incrementQuantity);
+document.getElementById("decrementBtn").addEventListener("click", decrementQuantity);
+
+
+// function to increment quantity
+function incrementQuantity() {
+  if (currentQuantity < maxQuantity) {
+    currentQuantity++;
+  updateQuantityDisplay();
+  console.log(currentQuantity);
+  } else {
+    alert("Maximum quantity reached");
+}
+}
+
+// function to decrement quantity (prevent going below 1)
+function decrementQuantity() {
+  if (currentQuantity > 1) {
+    currentQuantity--;
+    updateQuantityDisplay();
+  }
+  console.log(currentQuantity);
+}
+
+// function to update the quantity display in HTML
+function updateQuantityDisplay() {
+  quantityDisplay.textContent = currentQuantity;
+}
+
+
 
 
 

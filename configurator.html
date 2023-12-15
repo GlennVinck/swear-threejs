@@ -27,14 +27,29 @@
       <div id="overview" class="overview absolute top-1/2 right-0 transform -translate-y-1/2 p-8 bg-white border-black border-2 bg-opacity-90 z-10 w-80 h-96 overflow-y-auto">
         <h2 class="text-xl font-semibold mb-4">Overview</h2>
         <div id="shoePartsList" class="shoe-parts-list mb-4"></div>
-        <div id="price" class="price">
-          <h3 class="text-lg">Price: <span id="totalPrice" class="font-bold">$0.00</span></h3>
+       
           <h3 class="text-lg">Size: <span id="sizeDisplay" class="font-bold">35</span></h3>
 
           <label for="sizeDropdown" class="text-lg">Choose Size:</label>
           <select id="sizeDropdown" class="ml-2 p-2 " onchange="updateSelectedSize(this.value)"></select>
           
-          <button id="placeOrderBtn" class="w-full h-[40px] my-4 text-white bg-black flex items-center justify-center">PLACE ORDER</button>
+
+          
+
+
+
+          <div class="quantity-control flex items-center mb-4">
+            <h3 class="text-lg mr-2">Quantity:</h3>
+            <button id="decrementBtn" class="quantity-btn">-</button>
+            <span id="quantityDisplay" class="text-lg mx-2">1</span>
+            <button id="incrementBtn" class="quantity-btn">+</button>
+          </div>
+
+          <div id="price" class="price">
+            <h3 class="text-lg">Price: <span id="totalPrice" class="font-bold">$0.00</span></h3>
+          </div>
+
+          <div id="addToCartBtn" class="w-full h-[40px] my-4 text-white bg-black flex items-center justify-center">ADD TO CART</div>
           
         </div>
       </div>
