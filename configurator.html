@@ -25,13 +25,16 @@
 
 
       <div id="overview" class="overview absolute top-1/2 right-0 transform -translate-y-1/2 p-8 bg-white border-black border-2 bg-opacity-90 z-10 w-80 h-96 overflow-y-auto">
+
+        <img src="public/images/swear-logo-black.webp" alt="Overview Image" class="absolute bottom-0 right-0 m-4 w-16 h-16 object-contain" />
+
         <h2 class="text-xl font-semibold mb-4">Overview</h2>
         <div id="shoePartsList" class="shoe-parts-list mb-4"></div>
        
           <h3 class="text-lg">Size: <span id="sizeDisplay" class="font-bold">35</span></h3>
 
           <label for="sizeDropdown" class="text-lg">Choose Size:</label>
-          <select id="sizeDropdown" class="ml-2 p-2 " onchange="updateSelectedSize(this.value)"></select>
+          <select id="sizeDropdown" class="ml-2 p-2"></select>
           
 
           
