@@ -87,7 +87,7 @@ console.log(shoe);
 //-----------------RENDERER-----------------//
 
 const configurator = document.getElementById("configurator");
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setSize(configurator.clientWidth, configurator.clientHeight);
 renderer.setClearColor(new THREE.Color(0xffffff));
 renderer.shadowMap.enabled = true;
@@ -275,8 +275,10 @@ function onMouseClick(event) {
   
     // Handle color change event
     colorControl.onChange(function (selectedColor) {
+      if (selectedObject && selectedObject.material) {
       // Set the new color to the material
       selectedObject.material.color.set(selectedColor);
+      }
     });
 
     // Focus on the selected object
@@ -392,6 +394,48 @@ function updateQuantityDisplay() {
 }
 
 
+
+
+
+
+// Add this code at the end of configurator.js
+
+document.getElementById("placeOrderBtn").addEventListener("click", function () {
+  // Capture a snapshot of the configurator
+  html2canvas(document.getElementById("configurator")).then(function (canvas) {
+    const snapshotUrl = canvas.toDataURL("image/png");
+
+    // Get other details like quantity, size, and price
+    const selectedSize = document.getElementById("sizeDisplay").textContent;
+    const selectedQuantity = currentQuantity;
+    const selectedPrice = parseFloat(document.getElementById("totalPrice").textContent.replace("$", ""));
+
+    console.log("Colors of selected objects:");
+const colorLog = {};
+shoe.modelParts.forEach((selectedObject) => {
+  const colorHex = selectedObject.material.color.getHexString();
+  console.log(`${selectedObject.name}: ${colorHex}`);
+  colorLog[selectedObject.name] = colorHex;
+});
+
+localStorage.setItem("colorLog", JSON.stringify(colorLog));
+
+    // Prepare the data to send to checkout.html
+    const orderData = {
+      image: snapshotUrl,
+      shoeSize: selectedSize,
+      quantity: selectedQuantity,
+      price: selectedPrice,
+      color: selectedObject.material.color.getHexString(), // Convert THREE.Color to hex string
+    };
+
+    // Save the order data to local storage for retrieval in checkout.html
+    localStorage.setItem("orderData", JSON.stringify(orderData));
+
+    // Redirect to the checkout page
+    window.location.href = "./checkout.html";
+  });
+});
 
 
 

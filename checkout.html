@@ -20,10 +20,43 @@
         />
       </div>
     </nav>
-    <div><h1>Checkout</h1></div>
+    
+
+    <div class="container mx-auto flex justify-center items-center p-8">
+      <!-- Snapshot on the left -->
+      <div class="w-1/2 mr-8">
+          <img id="snapshotImage" alt="Configurator Snapshot" class="w-full h-auto">
+      </div>
+
+      <!-- Order details on the right -->
+      <div class="w-1/2">
+          <h2 class="text-2xl font-bold mb-4">Order Overview</h2>
+          <div class="mb-4">
+              <span class="font-bold mr-2">Shoe Size:</span>
+              <span id="shoeSize" class="text-sm"></span>
+          </div>
+          <div class="mb-4">
+              <span class="font-bold mr-2">Quantity:</span>
+              <span id="quantity" class="text-sm"></span>
+          </div>
+          <div class="mb-4">
+              <span class="font-bold mr-2">Price:</span>
+              <span id="price" class="text-sm"></span>
+          </div>
+      </div>
+  </div>
+
+
+
+      <!-- Order details will be displayed here -->
+    </div>
+    <button id="buyBtn" class="w-1/4 h-[40px] my-4 text-white bg-black mx-auto flex items-center justify-center">
+      BUY NOW
+    </button>
     <footer class="w-screen h-[160px] bg-stone-300 mt-auto">
       ©2023 by SWEAR London
     </footer>
     <script type="module" src="./main.js"></script>
+    <script type="module" src="./checkout.js"></script>
   </body>
 </html>
