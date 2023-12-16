@@ -2,9 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const customerName = "Joris Hens";
     const email = "joris@hens.be";
-    const price = 175;
-let basePrice = 175;
-let priceIncrement = 120;
+    const price = 175.00;
 
     // retrieve order data from local storage
     const orderDataString = localStorage.getItem("orderData");
@@ -38,8 +36,7 @@ let priceIncrement = 120;
         // Check if the element with ID "price" exists
         const priceElement = document.getElementById("price");
         if (priceElement) {
-            const calculatedPrice = basePrice + (orderData.quantity - 1) * priceIncrement;
-            priceElement.textContent = `$${calculatedPrice.toFixed(2)}`;
+            priceElement.textContent = `$${orderData.price.toFixed(2)}`;
         } else {
             console.error("Element with ID 'price' not found in the document.");
         }
@@ -118,7 +115,7 @@ let priceIncrement = 120;
         orderNumber: orderData.orderNumber,
         orderDate: orderData.orderDate,
         shoeSize: orderData.shoeSize,
-        price: price,
+        price: orderData.price,
         image: orderData.image,
         quantity: orderData.quantity,
         status: "pending"
