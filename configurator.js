@@ -76,6 +76,8 @@ const sizes = ["35","36","37","38","39" ,"40", "41", "42", "43", "44", "45", "46
 
 //-----------------QUANTITY-----------------//
 let currentQuantity = 1;
+let basePrice = 175;
+let priceIncrement = 120;
 const maxQuantity = 5;
 const quantityDisplay = document.getElementById("quantityDisplay");
 
@@ -367,8 +369,6 @@ function updateSelectedSize(selectedSize) {
 document.getElementById("incrementBtn").addEventListener("click", incrementQuantity);
 document.getElementById("decrementBtn").addEventListener("click", decrementQuantity);
 
-
-// function to increment quantity
 function incrementQuantity() {
   if (currentQuantity < maxQuantity) {
     currentQuantity++;
@@ -379,7 +379,6 @@ function incrementQuantity() {
 }
 }
 
-// function to decrement quantity (prevent going below 1)
 function decrementQuantity() {
   if (currentQuantity > 1) {
     currentQuantity--;
@@ -388,9 +387,11 @@ function decrementQuantity() {
   console.log(currentQuantity);
 }
 
-// function to update the quantity display in HTML
 function updateQuantityDisplay() {
   quantityDisplay.textContent = currentQuantity;
+  const totalPrice = document.getElementById("totalPrice");
+  const calculatedPrice = basePrice + (currentQuantity - 1) * priceIncrement;
+  totalPrice.textContent = `$${calculatedPrice.toFixed(2)}`;
 }
 
 
