@@ -10,7 +10,25 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   </head>
   <body class="flex flex-col h-screen m-0">
-    <nav class="w-screen h-[64px] bg-stone-300"></nav>
+    <nav
+      class="w-screen h-[80px] px-6 py-4 flex items-center fixed top-0 z-1000"
+    >
+      <div class="">
+        <img
+          src="/images/swear-logo-black.webp"
+          alt="Logo"
+          class="h-[32px] w-auto"
+        />
+      </div>
+      <div class="flex items-center gap-4 cursor-pointer ml-auto">
+        <img
+          src="/images/profilepic.jpg"
+          alt="profile picture"
+          class="w-[32px] h-[32px] rounded-full"
+        />
+        <h2>Joris Hens</h2>
+      </div>
+    </nav>
     <div id="configurator" class="w-auto h-full"></div>
     <div class="w-screen h-fit">
       <div
