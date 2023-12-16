@@ -43,14 +43,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const customerNameElement = document.getElementById("customerName");
         if (customerNameElement) {
-            customerNameElement.textContent = orderData.customerName;
+            customerNameElement.textContent = customerName;
         } else {
             console.error("Element with ID 'customerName' not found in the document.");
         }
 
         const emailElement = document.getElementById("email");
         if (emailElement) {
-            emailElement.textContent = orderData.email;
+            emailElement.textContent = email;
         } else {
             console.error("Element with ID 'email' not found in the document.");
         }
