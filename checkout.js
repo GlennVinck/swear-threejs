@@ -124,6 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listener for the "BUY NOW" button
     document.getElementById("buyBtn").addEventListener("click", function () {
 
+        orderData.orderDate = new Date();
+
         console.log("Order data:", requestBody);
         // send order data to the server
       fetch("http://localhost:3000/api/v1/orders", {
