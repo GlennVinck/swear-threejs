@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+</html>
+  <body class="flex flex-col h-screen m-0 pt-[80px]">
+    <nav class="w-screen h-[80px] px-6 py-4 flex items-center fixed top-0 z-1000">
+      <!-- Navigation content, if needed -->
+    </nav>
+
+    <div class="container mx-auto flex justify-center items-center p-8">
+      <form id="userDetailsForm" class="w-1/2">
+        <!-- User details form fields -->
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" name="customerName" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="streetName">Street Name:</label>
+        <input type="text" id="streetName" name="streetName" required />
+
+        <label for="streetNumber">Street Number:</label>
+        <input type="number" id="streetNumber" name="streetNumbe∂r" required />
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" name="postalCode" required />
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required />
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required />
+
+        
+
+
+
+        
+
+        <button type="button" onclick="submitUserDetails()">Continue to Checkout</button>
+      </form>
+    </div>
+
+    <!-- ... (your existing code) ... -->
+
+    <script type="module" src="./main.js"></script>
+    <script type="module" src="./checkout.js"></script>
+    <script>
+      function submitUserDetails() {
+        // Collect user details
+        const userDetails = {
+          customerName: document.getElementById("customerName").value,
+          email: document.getElementById("email").value,
+          streetName: document.getElementById("streetName").value,
+          streetNumber: document.getElementById("streetNumber").value,
+          postalCode: document.getElementById("postalCode").value,
+          city: document.getElementById("city").value,
+          country: document.getElementById("country").value,
+        };
+
+        // Save user details to local storage
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+
+        // Redirect to the checkout page
+        window.location.href = "./checkout.html";
+      }
+    </script>
+  </body>
+</html>

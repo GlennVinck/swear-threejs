@@ -434,7 +434,7 @@ localStorage.setItem("colorLog", JSON.stringify(colorLog));
     localStorage.setItem("orderData", JSON.stringify(orderData));
 
     // Redirect to the checkout page
-    window.location.href = "./checkout.html";
+    window.location.href = "./userDetails.html";
   });
 });
 

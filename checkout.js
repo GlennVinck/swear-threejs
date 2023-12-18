@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const customerName = "Joris Hens";
-    const email = "joris@hens.be";
-    const price = 175.00;
+    // const customerName = "Joris Hens";
+    // const email = "joris@hens.be";
+    // const price = 175.00;
 
     // retrieve order data from local storage
     const orderDataString = localStorage.getItem("orderData");
@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const postalCode = generateRandomPostalCode();
         return `${streetNumber} ${streetName}, Belgium ${postalCode}`;
       }
+
+      const userDetailString = localStorage.getItem("userDetails");
+      const userDetails = JSON.parse(userDetailString);
 
 
 
@@ -68,14 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const customerNameElement = document.getElementById("customerName");
         if (customerNameElement) {
-            customerNameElement.textContent = customerName;
+            customerNameElement.textContent = userDetails.customerName;
         } else {
             console.error("Element with ID 'customerName' not found in the document.");
         }
 
         const emailElement = document.getElementById("email");
         if (emailElement) {
-            emailElement.textContent = email;
+            emailElement.textContent = userDetails.email;
         } else {
             console.error("Element with ID 'email' not found in the document.");
         }
@@ -93,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
        if (deliveryAddressElement) {
     // generate a random Belgian-style delivery address
     orderData.deliveryAddress = generateRandomBelgianAddress();
-    deliveryAddressElement.textContent = orderData.deliveryAddress;
+    deliveryAddressElement.textContent = userDetails.streetName + " " + userDetails.streetNumber + ", " + userDetails.postalCode + " " + userDetails.city + ", " + userDetails.country;
   } else {
     console.error("Element with ID 'deliveryAddress' not found in the document.");
   }
@@ -131,21 +134,25 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Order data not found in local storage.");
     }
 
-    const streetName = generateRandomStreetName();
+            const streetName = generateRandomStreetName();
             const streetNumber = getRandomInt(1, 100);
             const postalCode = generateRandomPostalCode();
 
+
+
+     
+
     const requestBody = {
-        customerName: customerName,
+        customerName: userDetails.customerName,
         deliveryAdress: {
-            fullAdress: orderData.deliveryAddress,
-            streetName: streetName,
-            streetNumber: streetNumber,
-            postalCode: postalCode,
-            shippingTo: "Belgium",
+            fullAdress: `${userDetails.streetNumber} ${userDetails.streetName}, ${userDetails.city} ${userDetails.postalCode}, ${userDetails.country}`,
+            streetName: userDetails.streetName,
+            streetNumber: userDetails.streetNumber,
+            postalCode: userDetails.postalCode,
+            shippingTo: userDetails.country,
             shippingFrom: "London",
         },
-        email: email,
+        email: userDetails.email,
         orderNumber: orderData.orderNumber,
         orderDate: orderData.orderDate,
         shoeSize: orderData.shoeSize,
