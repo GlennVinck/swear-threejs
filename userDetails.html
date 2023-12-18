@@ -33,10 +33,16 @@
     
     <div class="container mx-auto flex justify-center items-center p-8">
         <form id="userDetailsForm" class="w-full md:w-1/2 bg-white rounded-lg shadow-md p-8 grid grid-cols-1 gap-y-4">
-    
+
             <div>
-                <label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name:</label>
-                <input type="text" id="customerName" name="customerName" required
+                <label for="firstName" class="block text-sm font-medium text-gray-700">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required
+                       class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+            </div>
+
+            <div>
+                <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required
                        class="mt-1 p-2 w-full border border-gray-300 rounded-md">
             </div>
     
@@ -105,7 +111,8 @@
       function submitUserDetails() {
         // Collect user details
         const userDetails = {
-          customerName: document.getElementById("customerName").value,
+          firstName: document.getElementById("firstName").value,
+          lastName: document.getElementById("lastName").value,
           email: document.getElementById("email").value,
           streetName: document.getElementById("streetName").value,
           streetNumber: document.getElementById("streetNumber").value,

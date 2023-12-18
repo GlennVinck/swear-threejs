@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const customerNameElement = document.getElementById("customerName");
         if (customerNameElement) {
-            customerNameElement.textContent = userDetails.customerName;
+            customerNameElement.textContent = userDetails.firstName + " " + userDetails.lastName;
         } else {
             console.error("Element with ID 'customerName' not found in the document.");
         }
@@ -143,7 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
      
 
     const requestBody = {
-        customerName: userDetails.customerName,
+        firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
         deliveryAdress: {
             fullAdress: `${userDetails.streetNumber} ${userDetails.streetName}, ${userDetails.city} ${userDetails.postalCode}, ${userDetails.country}`,
             streetName: userDetails.streetName,
