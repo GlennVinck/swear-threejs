@@ -92,6 +92,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Element with ID 'orderNumber' not found in the document.");
         }
 
+        const customerIdElement = document.getElementById("customerId");
+        // generate a random customer ID, not only numbers but also letters
+        if (customerIdElement) {
+            orderData.customerId = Math.random().toString(36).substr(2, 9);
+            customerIdElement.textContent = orderData.customerId;
+        } else {
+            console.error("Element with ID 'customerId' not found in the document.");
+        }
+
         const deliveryAddressElement = document.getElementById("deliveryAddress");
        if (deliveryAddressElement) {
     // generate a random Belgian-style delivery address
@@ -143,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
      
 
     const requestBody = {
+        customerId: orderData.customerId,
         firstName: userDetails.firstName,
         lastName: userDetails.lastName,
         deliveryAdress: {
@@ -183,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Order placed successfully:", data);
 
 
-          window.location.href = "./thank-you.html";
+          // window.location.href = "./thank-you.html";
         })
         .catch((error) => {
           console.log("Error:", error);
