@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" href="./public/images/swear-favicon.webp" />
+  <title>Thank You for Ordering | S.W.E.A.R. London</title>
+  <!-- Add any additional styles if needed -->
+</head>
+<body class="flex flex-col h-screen m-0 pt-[80px] bg-gray-100">
+    <nav
+    class="w-screen h-[80px] px-6 py-4 flex items-center fixed top-0 z-1000"
+  >
+    <div class="">
+      <img
+        src="/images/swear-logo-black.webp"
+        alt="Logo"
+        class="h-[32px] w-auto"
+      />
+    </div>
+    <div class="flex items-center gap-4 cursor-pointer ml-auto">
+      <img
+        src="/images/profilepic.jpg"
+        alt="profile picture"
+        class="w-[32px] h-[32px] rounded-full"
+      />
+      <h2>Joris Hens</h2>
+    </div>
+  </nav>
+
+  <div class="container mx-auto flex justify-center items-center p-8">
+    <div class="text-center">
+      <h2 class="text-2xl font-bold mb-4">Thank You for Your Order!</h2>
+      
+      <button onclick="goToHome()" class="mt-4 p-2 bg-black text-white rounded-md hover:bg-gray-800 transition duration-300">
+        Go to Home
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-8 text-white text-center bg-black p-2">
+    <span>©2023 by SWEAR London</span>
+</div>
+
+  <script type="module" src="./main.js"></script>
+
+  <script>
+    function goToHome() {
+      window.location.href = "./index.html";
+    }
+  </script>
+</body>
+</html>

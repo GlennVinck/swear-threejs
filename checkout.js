@@ -180,6 +180,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((data) => {
           // Handle the response from the server
           console.log("Order placed successfully:", data);
+
+
+          window.location.href = "./thank-you.html";
         })
         .catch((error) => {
           console.log("Error:", error);
