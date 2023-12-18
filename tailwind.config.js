@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./configurator.html",
     "./checkout.html",
+    "./userDetails.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
