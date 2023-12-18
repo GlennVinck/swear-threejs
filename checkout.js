@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Order placed successfully:", data);
 
 
-          // window.location.href = "./thank-you.html";
+          window.location.href = "./thank-you.html";
         })
         .catch((error) => {
           console.log("Error:", error);
