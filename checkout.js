@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         price: orderData.price,
         image: orderData.image,
         quantity: orderData.quantity,
-        status: "pending"
+        status: "Pending"
     };
 
     // add event listener for the "BUY NOW" button
