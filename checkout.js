@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
     status: "Pending",
   };
 
-  const socket = new WebSocket("ws://swear-api-ycnm.onrender.com/primus"); // Replace with your WebSocket server URL
+  const socket = new WebSocket("wss://swear-api-ycnm.onrender.com/primus"); // Replace with your WebSocket server URL
 
   // add event listener for the "BUY NOW" button
   document.getElementById("buyBtn").addEventListener("click", function () {
