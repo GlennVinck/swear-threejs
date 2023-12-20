@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
     status: "Pending",
   };
 
-  const socket = new WebSocket("ws://localhost:3000/primus"); // Replace with your WebSocket server URL
+  const socket = new WebSocket("ws://swear-api-ycnm.onrender.com/primus"); // Replace with your WebSocket server URL
 
   // add event listener for the "BUY NOW" button
   document.getElementById("buyBtn").addEventListener("click", function () {
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.send(JSON.stringify(websocketPayload));
 
     // send order data to the server
-    fetch("http://localhost:3000/api/v1/orders", {
+    fetch("https://swear-api-ycnm.onrender.com/api/v1/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
